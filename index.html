@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen TKA Matematika - Kombinatorika Kelas XII</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- MathJax CDN -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .option-card:hover { border-color: #0284c7; background-color: #f0f9ff; }
+        .option-card.selected {
+            border-color: #0284c7;
+            background-color: #e0f2fe;
+            box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+        }
+        .copyright-text {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #94a3b8;
+            letter-spacing: 0.2px;
+        }
+        .copyright-sidebar { font-size: 11px; margin-top: 16px; padding-top: 16px; border-top: 1px dashed #e2e8f0; }
+        .copyright-start { margin-top: 16px; padding-top: 14px; border-top: 1px dashed #e2e8f0; }
+        .animate-scale-up { animation: scaleUp 0.2s ease-out; }
+        @keyframes scaleUp {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER APLIKASI -->
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-sky-500/30 overflow-hidden flex-shrink-0">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiDXJeJJ9DWykQVF58kDp_k3wEhCESgfgjq9XyRyik147AC3z2mTULQkwi0aVbl_N8fhzgzqo2TC5qkg2TGYwuL0UuGf9V0d06WE2vcwkYBoVR1kx-b9g5RGYq4BTuAbtKG3ZyL13chTY_lYQWGXHrtq8eVraaj38e9kICAXBqb9Jo88c3y6hyphenhyphen0NYxcNQ4/s1600/Dinamis.png"
+                         alt="Logo TKA" class="w-full h-full object-contain p-1">
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold leading-tight">Asesmen TKA Kombinatorika</h1>
+                    <p class="text-xs text-slate-400">Pusmendik Kemendikdasmen • Kelas XII</p>
+                </div>
+            </div>
+
+            <div id="header-status" class="hidden flex items-center gap-4">
+                <div class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 hidden sm:block">
+                    <span class="text-xs text-slate-400 block">Peserta</span>
+                    <span id="display-user-name" class="text-sm font-semibold text-sky-400">---</span>
+                </div>
+                <div class="bg-amber-500/10 border border-amber-500/30 px-3.5 py-1.5 rounded-xl flex items-center gap-2">
+                    <i class="fa-regular fa-clock text-amber-500 animate-pulse"></i>
+                    <div>
+                        <span class="text-[10px] text-amber-400 block font-medium leading-none">SISA WAKTU</span>
+                        <span id="timer" class="text-sm font-extrabold text-amber-500 tracking-wider">90:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- 1. SCREEN INPUT IDENTITAS -->
+        <section id="welcome-screen" class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden my-4">
+            <div class="bg-gradient-to-r from-sky-600 to-indigo-700 p-6 sm:p-8 text-white relative">
+                <div class="relative z-10 flex flex-col items-center text-center">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiDXJeJJ9DWykQVF58kDp_k3wEhCESgfgjq9XyRyik147AC3z2mTULQkwi0aVbl_N8fhzgzqo2TC5qkg2TGYwuL0UuGf9V0d06WE2vcwkYBoVR1kx-b9g5RGYq4BTuAbtKG3ZyL13chTY_lYQWGXHrtq8eVraaj38e9kICAXBqb9Jo88c3y6hyphenhyphen0NYxcNQ4/s1600/Dinamis.png"
+                         alt="Logo TKA" class="w-16 h-16 object-contain mb-3 drop-shadow-xl">
+                    <span class="bg-sky-400/30 text-sky-100 text-xs font-semibold px-3 py-1 rounded-full border border-sky-300/30">Standardization Assessment</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-3">Tes Kemampuan Akademik (TKA)</h2>
+                    <p class="text-sky-100 text-sm mt-1">Materi: Kombinatorika — Faktorial, Permutasi, Kombinasi</p>
+                </div>
+            </div>
+
+            <form id="identity-form" class="p-6 sm:p-8 space-y-5" onsubmit="startExam(event)">
+                <div class="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-xl text-xs sm:text-sm flex gap-3">
+                    <i class="fa-solid fa-circle-info text-amber-600 text-lg flex-shrink-0 mt-0.5"></i>
+                    <div>
+                        <strong>Petunjuk Pengerjaan:</strong>
+                        <ul class="list-disc list-inside mt-1 space-y-0.5 text-amber-700">
+                            <li>Total <b>35 Soal</b> (20 PG, 10 PG Kompleks, 5 Isian Singkat).</li>
+                            <li>Waktu pengerjaan adalah <b>90 Menit</b>.</li>
+                            <li>Isi data diri dengan benar sebelum memulai ujian.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="input-name" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Nama Lengkap Siswa <span class="text-red-500">*</span></label>
+                    <input type="text" id="input-name" required placeholder="Contoh: Muhammad Rizky Febrian"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-slate-800 text-sm outline-none transition">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label for="input-class" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Kelas / Tingkat <span class="text-red-500">*</span></label>
+                        <select id="input-class" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-slate-800 text-sm outline-none transition">
+                            <option value="">-- Pilih Kelas --</option>
+                            <option value="X">X</option>
+                            <option value="XI">XI</option>
+                            <option value="XII">XII</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="input-absen" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Nomor Absen <span class="text-red-500">*</span></label>
+                        <input type="number" id="input-absen" min="1" max="50" required placeholder="Contoh: 18"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-slate-800 text-sm outline-none transition">
+                    </div>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-sky-600/30 transition duration-200 flex items-center justify-center gap-2 group">
+                        <span>Mulai Pengerjaan Ujian</span>
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition duration-150"></i>
+                    </button>
+                </div>
+
+                <div class="copyright-text copyright-start">
+                    Copyright © : <span class="copy-year"></span> | Rahadi S.
+                </div>
+            </form>
+        </section>
+
+        <!-- 2. SCREEN UJIAN -->
+        <section id="exam-screen" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <div class="lg:col-span-3 space-y-5">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between gap-4">
+                    <div class="w-full">
+                        <div class="flex justify-between text-xs text-slate-500 font-semibold mb-1.5">
+                            <span id="progress-text">Progres: 0 / 35 Terjawab</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                            <div id="progress-bar-fill" class="bg-sky-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="question-container" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 min-h-[420px] flex flex-col justify-between">
+                    <!-- Dynamic content -->
+                </div>
+
+                <div class="flex items-center justify-between gap-3">
+                    <button id="btn-prev" onclick="navigateQuestion(-1)" class="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 px-5 py-2.5 rounded-xl font-semibold text-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        <span>Sebelumnya</span>
+                    </button>
+                    <button id="btn-next" onclick="navigateQuestion(1)" class="bg-sky-600 hover:bg-sky-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm shadow-md transition flex items-center gap-2">
+                        <span>Selanjutnya</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-5">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-4 flex items-center justify-between">
+                        <span>Peta Nomor Soal</span>
+                        <i class="fa-solid fa-grip text-slate-400"></i>
+                    </h3>
+
+                    <div id="question-grid" class="grid grid-cols-5 gap-2 custom-scrollbar max-h-[360px] overflow-y-auto p-1">
+                        <!-- Populated -->
+                    </div>
+
+                    <div class="mt-5 pt-4 border-t border-slate-100 space-y-2 text-xs">
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-4 h-4 rounded bg-sky-600 text-white text-[10px] font-bold flex items-center justify-center">N</span>
+                            <span class="text-slate-600">Sedang Dibuka</span>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-4 h-4 rounded bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center"><i class="fa-solid fa-check"></i></span>
+                            <span class="text-slate-600">Sudah Dijawab</span>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <span class="w-4 h-4 rounded bg-slate-100 border border-slate-300 text-slate-600 text-[10px] font-bold flex items-center justify-center">N</span>
+                            <span class="text-slate-600">Belum Dijawab</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <button onclick="confirmSubmit()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Selesaikan Ujian</span>
+                        </button>
+                    </div>
+
+                    <div class="copyright-text copyright-sidebar">
+                        Copyright © : <span class="copy-year"></span> | Rahadi S.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SCREEN RESULT -->
+        <section id="result-screen" class="hidden max-w-4xl mx-auto space-y-6">
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden p-6 sm:p-8 text-center relative">
+                <div class="inline-block bg-sky-100 text-sky-800 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Laporan Hasil Asesmen</div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">Nilai Akhir TKA Kombinatorika</h2>
+                <p id="result-user-info" class="text-slate-500 text-sm mt-1">Siswa: --- | Kelas: ---</p>
+
+                <div class="my-6 inline-flex items-center justify-center p-6 bg-slate-50 rounded-full border-4 border-sky-500 shadow-inner">
+                    <div class="text-center">
+                        <span id="final-score" class="text-5xl font-black text-slate-800 block">0</span>
+                        <span class="text-xs text-slate-400 font-semibold uppercase tracking-widest">Skor Total (100)</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-xl mx-auto text-left">
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 block">Jawaban Benar</span>
+                        <span id="stat-correct" class="text-lg font-bold text-emerald-600">0</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 block">Jawaban Salah</span>
+                        <span id="stat-wrong" class="text-lg font-bold text-red-500">0</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 block">Akurasi</span>
+                        <span id="stat-accuracy" class="text-lg font-bold text-sky-600">0%</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <span class="text-xs text-slate-500 block">Waktu Digunakan</span>
+                        <span id="stat-time" class="text-lg font-bold text-amber-600">--:--</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-center gap-3">
+                    <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Cetak Laporan</span>
+                    </button>
+                    <button onclick="location.reload()" class="bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Ulangi Tes</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-sky-600"></i>
+                    <span>Pembahasan Kunci Jawaban Lengkap</span>
+                </h3>
+                <div id="discussion-list" class="space-y-4">
+                    <!-- Populated -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL KONFIRMASI -->
+    <div id="submit-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 text-center space-y-4 animate-scale-up">
+            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800">Selesaikan Ujian Sekarang?</h3>
+            <p id="modal-warning-text" class="text-sm text-slate-600">Pastikan Anda telah memeriksa kembali seluruh jawaban sebelum mengirimkan.</p>
+            <div class="flex gap-3 pt-2">
+                <button onclick="closeModal()" class="w-1/2 border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold py-2.5 rounded-xl text-sm transition">Kembali Periksa</button>
+                <button onclick="processSubmit()" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-md">Ya, Selesai</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            &copy; <span class="copy-year"></span> Asesmen TKA Kombinatorika SMA • Berdasarkan Kurikulum Merdeka (Kemendikdasmen)
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // BANK SOAL KOMBINATORIKA — 35 SOAL
+        // ============================================================
+        const questions = [
+            // ================= 20 SOAL PG SEDERHANA (1-20) =================
+            {
+                id: 1, type: 'pg', category: 'Faktorial',
+                question: 'Nilai dari $5!$ adalah …',
+                options: ['20', '60', '120', '720'],
+                answer: '120',
+                explanation: '$5! = 5 \\times 4 \\times 3 \\times 2 \\times 1 = 120$.'
+            },
+            {
+                id: 2, type: 'pg', category: 'Faktorial',
+                question: 'Nilai dari $4! + 3!$ adalah …',
+                options: ['18', '24', '30', '36'],
+                answer: '30',
+                explanation: '$4! = 24$ dan $3! = 6$, sehingga $4! + 3! = 24 + 6 = 30$.'
+            },
+            {
+                id: 3, type: 'pg', category: 'Faktorial',
+                question: 'Nilai dari $\\frac{6!}{4!}$ adalah …',
+                options: ['2', '15', '30', '120'],
+                answer: '30',
+                explanation: '$\\frac{6!}{4!} = 6 \\times 5 = 30$.'
+            },
+            {
+                id: 4, type: 'pg', category: 'Permutasi r dari n',
+                question: 'Nilai dari $P(5,2)$ adalah …',
+                options: ['10', '15', '20', '25'],
+                answer: '20',
+                explanation: '$P(5,2) = 5 \\times 4 = 20$.'
+            },
+            {
+                id: 5, type: 'pg', category: 'Permutasi r dari n',
+                question: 'Nilai dari $P(6,3)$ adalah …',
+                options: ['60', '90', '120', '180'],
+                answer: '120',
+                explanation: '$P(6,3) = 6 \\times 5 \\times 4 = 120$.'
+            },
+            {
+                id: 6, type: 'pg', category: 'Permutasi r dari n',
+                question: 'Banyak cara memilih ketua dan wakil ketua dari 8 orang kandidat adalah …',
+                options: ['28', '56', '64', '72'],
+                answer: '56',
+                explanation: 'Memilih ketua dan wakil = urutan diperhatikan, sehingga $P(8,2) = 8 \\times 7 = 56$ cara.'
+            },
+            {
+                id: 7, type: 'pg', category: 'Permutasi n Unsur',
+                question: 'Banyak susunan 4 buku berbeda yang disusun berjajar di rak adalah …',
+                options: ['12', '16', '24', '28'],
+                answer: '24',
+                explanation: '$4! = 4 \\times 3 \\times 2 \\times 1 = 24$ susunan.'
+            },
+            {
+                id: 8, type: 'pg', category: 'Permutasi Unsur Sama',
+                question: 'Banyak susunan huruf berbeda dari kata <b>BUKU</b> adalah …',
+                options: ['6', '12', '24', '48'],
+                answer: '12',
+                explanation: 'Huruf U muncul 2 kali, sehingga $\\frac{4!}{2!} = \\frac{24}{2} = 12$ susunan.'
+            },
+            {
+                id: 9, type: 'pg', category: 'Permutasi Unsur Sama',
+                question: 'Banyak susunan huruf berbeda dari kata <b>MAMA</b> adalah …',
+                options: ['4', '6', '12', '24'],
+                answer: '6',
+                explanation: 'Huruf M = 2 dan A = 2, sehingga $\\frac{4!}{2! \\, 2!} = \\frac{24}{4} = 6$ susunan.'
+            },
+            {
+                id: 10, type: 'pg', category: 'Permutasi Siklis',
+                question: 'Banyak cara 5 orang duduk melingkar mengelilingi meja bundar adalah …',
+                options: ['12', '24', '60', '120'],
+                answer: '24',
+                explanation: 'Permutasi siklis: $(n-1)! = (5-1)! = 4! = 24$ susunan.'
+            },
+            {
+                id: 11, type: 'pg', category: 'Permutasi Siklis',
+                question: 'Banyak cara 6 orang duduk melingkar mengelilingi meja bundar adalah …',
+                options: ['24', '120', '720', '5040'],
+                answer: '120',
+                explanation: '$(6-1)! = 5! = 120$ susunan.'
+            },
+            {
+                id: 12, type: 'pg', category: 'Kombinasi',
+                question: 'Nilai dari $C(5,2)$ adalah …',
+                options: ['5', '10', '20', '25'],
+                answer: '10',
+                explanation: '$C(5,2) = \\frac{5!}{2! \\, 3!} = \\frac{5 \\times 4}{2 \\times 1} = 10$.'
+            },
+            {
+                id: 13, type: 'pg', category: 'Kombinasi',
+                question: 'Nilai dari $C(6,3)$ adalah …',
+                options: ['10', '15', '20', '30'],
+                answer: '20',
+                explanation: '$C(6,3) = \\frac{6!}{3! \\, 3!} = \\frac{6 \\times 5 \\times 4}{3 \\times 2 \\times 1} = 20$.'
+            },
+            {
+                id: 14, type: 'pg', category: 'Kombinasi',
+                question: 'Banyak cara memilih 2 orang dari 7 orang adalah …',
+                options: ['14', '21', '42', '49'],
+                answer: '21',
+                explanation: '$C(7,2) = \\frac{7!}{2! \\, 5!} = \\frac{7 \\times 6}{2 \\times 1} = 21$ cara.'
+            },
+            {
+                id: 15, type: 'pg', category: 'Faktorial',
+                question: 'Nilai dari $0!$ adalah …',
+                options: ['0', '1', '2', 'Tidak terdefinisi'],
+                answer: '1',
+                explanation: 'Berdasarkan definisi, $0! = 1$.'
+            },
+            {
+                id: 16, type: 'pg', category: 'Permutasi n Unsur',
+                question: 'Nilai dari $P(4,4)$ adalah …',
+                options: ['4', '12', '24', '256'],
+                answer: '24',
+                explanation: '$P(4,4) = \\frac{4!}{0!} = 4! = 24$.'
+            },
+            {
+                id: 17, type: 'pg', category: 'Permutasi n Unsur',
+                question: 'Banyak cara menyusun 3 huruf A, B, dan C (semua huruf dipakai) adalah …',
+                options: ['3', '6', '9', '27'],
+                answer: '6',
+                explanation: '$3! = 3 \\times 2 \\times 1 = 6$ susunan (ABC, ACB, BAC, BCA, CAB, CBA).'
+            },
+            {
+                id: 18, type: 'pg', category: 'Permutasi Unsur Sama',
+                question: 'Banyak susunan huruf berbeda dari kata <b>KATA</b> adalah …',
+                options: ['6', '12', '24', '48'],
+                answer: '12',
+                explanation: 'Huruf A muncul 2 kali, sehingga $\\frac{4!}{2!} = 12$ susunan.'
+            },
+            {
+                id: 19, type: 'pg', category: 'Kombinasi',
+                question: 'Dari 10 siswa akan dipilih 1 ketua kelas. Banyak cara memilihnya adalah …',
+                options: ['1', '10', '45', '90'],
+                answer: '10',
+                explanation: 'Setiap siswa berpeluang sama menjadi ketua, sehingga ada 10 pilihan.'
+            },
+            {
+                id: 20, type: 'pg', category: 'Kombinasi',
+                question: 'Banyak cara memilih 3 permen dari 5 rasa berbeda adalah …',
+                options: ['5', '10', '20', '60'],
+                answer: '10',
+                explanation: 'Urutan tidak diperhatikan, gunakan kombinasi: $C(5,3) = \\frac{5!}{3! \\, 2!} = 10$.'
+            },
+
+            // ================= 10 SOAL PG KOMPLEKS (21-30) =================
+            {
+                id: 21, type: 'pg_kompleks_multi', category: 'Faktorial',
+                question: 'Pilih semua pernyataan yang <b>BENAR</b> tentang faktorial berikut!',
+                options: ['$3! = 6$', '$4! = 12$', '$0! = 1$', '$\\frac{5!}{4!} = 5$'],
+                answer: ['$3! = 6$', '$0! = 1$', '$\\frac{5!}{4!} = 5$'],
+                explanation: '$3! = 6$ (benar), $0! = 1$ (benar), $\\frac{5!}{4!} = 5$ (benar). Sedangkan $4! = 24 \\neq 12$ (salah).'
+            },
+            {
+                id: 22, type: 'pg_kompleks_multi', category: 'Permutasi r dari n',
+                question: 'Nilai yang <b>sama dengan</b> $P(5,2)$ adalah …',
+                options: ['$5 \\times 4$', '$C(5,2) \\times 2!$', '$\\frac{5!}{3!}$', '$10$'],
+                answer: ['$5 \\times 4$', '$C(5,2) \\times 2!$', '$\\frac{5!}{3!}$'],
+                explanation: '$P(5,2) = 20$. $5 \\times 4 = 20$; $C(5,2) \\times 2! = 10 \\times 2 = 20$; $\\frac{5!}{3!} = 20$. Sedangkan $10$ bukan 20.'
+            },
+            {
+                id: 23, type: 'pg_kompleks_multi', category: 'Permutasi n Unsur',
+                question: 'Banyak susunan huruf dari kata <b>API</b> (semua huruf berbeda) dapat dinyatakan sebagai …',
+                options: ['$3!$', '$6$', '$P(3,3)$', '$3$'],
+                answer: ['$3!$', '$6$', '$P(3,3)$'],
+                explanation: '$3! = 6 = P(3,3)$. Jadi hasilnya 6, bukan 3.'
+            },
+            {
+                id: 24, type: 'pg_kompleks_multi', category: 'Permutasi Unsur Sama',
+                question: 'Kata <b>SUSU</b> memiliki huruf S = 2 dan U = 2. Pilih pernyataan yang <b>BENAR</b>!',
+                options: ['Banyak susunan $= \\frac{4!}{2! \\, 2!}$', 'Banyak susunan $= 4!$', 'Ada 6 susunan berbeda', 'Semua huruf berbeda'],
+                answer: ['Banyak susunan $= \\frac{4!}{2! \\, 2!}$', 'Ada 6 susunan berbeda'],
+                explanation: '$\\frac{4!}{2! \\, 2!} = \\frac{24}{4} = 6$. Susunan bukan $4!$ dan huruf tidak semua berbeda (S dan U masing-masing ada 2).'
+            },
+            {
+                id: 25, type: 'pg_kompleks_multi', category: 'Permutasi Siklis',
+                question: 'Untuk 4 orang duduk melingkar, pernyataan yang <b>BENAR</b> adalah …',
+                options: ['Rumusnya $(4-1)!$', 'Sama dengan $3!$', 'Hasilnya 6', 'Hasilnya $4!$'],
+                answer: ['Rumusnya $(4-1)!$', 'Sama dengan $3!$', 'Hasilnya 6'],
+                explanation: 'Permutasi siklis 4 orang: $(4-1)! = 3! = 6$. Hasil bukan $4! = 24$.'
+            },
+            {
+                id: 26, type: 'pg_kompleks_multi', category: 'Kombinasi',
+                question: 'Nilai $C(6,2)$ <b>sama dengan</b> …',
+                options: ['$15$', '$\\frac{6!}{2! \\, 4!}$', '$\\frac{P(6,2)}{2!}$', '$30$'],
+                answer: ['$15$', '$\\frac{6!}{2! \\, 4!}$', '$\\frac{P(6,2)}{2!}$'],
+                explanation: '$C(6,2) = 15$; $\\frac{6!}{2! \\, 4!} = 15$; $\\frac{P(6,2)}{2!} = \\frac{30}{2} = 15$. Sedangkan $30 \\neq 15$.'
+            },
+            {
+                id: 27, type: 'pg_kompleks_multi', category: 'Kombinasi',
+                question: 'Memilih 2 siswa dari 5 siswa <b>tanpa memperhatikan urutan</b>. Pernyataan yang benar adalah …',
+                options: ['Menggunakan $C(5,2)$', 'Hasilnya $10$', 'Menggunakan $P(5,2)$', 'Hasilnya $20$'],
+                answer: ['Menggunakan $C(5,2)$', 'Hasilnya $10$'],
+                explanation: 'Karena urutan tidak diperhatikan, gunakan kombinasi $C(5,2) = 10$.'
+            },
+            {
+                id: 28, type: 'pg_kompleks_multi', category: 'Permutasi n Unsur',
+                question: 'Menyusun 5 orang duduk berjajar. Pernyataan yang benar adalah …',
+                options: ['Menggunakan $5!$', 'Hasilnya $120$', 'Sama dengan $P(5,5)$', 'Hasilnya $5$'],
+                answer: ['Menggunakan $5!$', 'Hasilnya $120$', 'Sama dengan $P(5,5)$'],
+                explanation: '$5! = P(5,5) = 120$. Bukan 5.'
+            },
+            {
+                id: 29, type: 'pg_kompleks_multi', category: 'Faktorial',
+                question: 'Pernyataan yang <b>BENAR</b> tentang $7!$ adalah …',
+                options: ['$7! = 7 \\times 6!$', '$7! = 5040$', '$\\frac{7!}{5!} = 42$', '$\\frac{7!}{6!} = 6$'],
+                answer: ['$7! = 7 \\times 6!$', '$7! = 5040$', '$\\frac{7!}{5!} = 42$'],
+                explanation: '$7! = 7 \\times 6! = 5040$; $\\frac{7!}{5!} = 42$. Namun $\\frac{7!}{6!} = 7$, bukan 6.'
+            },
+            {
+                id: 30, type: 'pg_kompleks_multi', category: 'Permutasi r dari n',
+                question: 'Dari huruf A, B, C, D disusun 2 huruf berbeda dengan <b>urutan diperhatikan</b>. Pernyataan yang benar adalah …',
+                options: ['Menggunakan $P(4,2)$', 'Hasilnya $12$', 'Menggunakan $C(4,2)$', 'Hasilnya $6$'],
+                answer: ['Menggunakan $P(4,2)$', 'Hasilnya $12$'],
+                explanation: 'Urutan diperhatikan sehingga gunakan permutasi: $P(4,2) = 4 \\times 3 = 12$.'
+            },
+
+            // ================= 5 SOAL ISIAN (31-35) =================
+            {
+                id: 31, type: 'short_answer', category: 'Faktorial',
+                question: 'Hitunglah nilai dari $6!$.',
+                answer: '720',
+                explanation: '$6! = 6 \\times 5 \\times 4 \\times 3 \\times 2 \\times 1 = 720$.'
+            },
+            {
+                id: 32, type: 'short_answer', category: 'Permutasi r dari n',
+                question: 'Hitunglah nilai dari $P(7,2)$.',
+                answer: '42',
+                explanation: '$P(7,2) = 7 \\times 6 = 42$.'
+            },
+            {
+                id: 33, type: 'short_answer', category: 'Permutasi n Unsur',
+                question: 'Berapa banyak susunan huruf berbeda dari kata <b>BOLA</b>? (Semua huruf berbeda)',
+                answer: '24',
+                explanation: 'Kata BOLA memiliki 4 huruf berbeda, sehingga banyak susunan $= 4! = 24$.'
+            },
+            {
+                id: 34, type: 'short_answer', category: 'Permutasi Unsur Sama',
+                question: 'Berapa banyak susunan huruf berbeda dari kata <b>SAMA</b>?',
+                answer: '12',
+                explanation: 'Huruf A muncul 2 kali, sehingga banyak susunan $= \\frac{4!}{2!} = 12$.'
+            },
+            {
+                id: 35, type: 'short_answer', category: 'Kombinasi',
+                question: 'Berapa banyak cara memilih 3 orang dari 8 orang?',
+                answer: '56',
+                explanation: 'Urutan tidak diperhatikan: $C(8,3) = \\frac{8!}{3! \\, 5!} = \\frac{8 \\times 7 \\times 6}{3 \\times 2 \\times 1} = 56$ cara.'
+            }
+        ];
+
+        // ============================================================
+        // STATE APLIKASI
+        // ============================================================
+        const TOTAL_TIME = 90 * 60; // 90 menit
+        let currentUser = { name: '', class: '', absen: '' };
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timerInterval = null;
+        let timeRemaining = TOTAL_TIME;
+        let isSubmitted = false;
+
+        // ============================================================
+        // FLOW EXAM
+        // ============================================================
+        function startExam(e) {
+            e.preventDefault();
+            currentUser.name = document.getElementById('input-name').value.trim();
+            currentUser.class = document.getElementById('input-class').value;
+            currentUser.absen = document.getElementById('input-absen').value;
+
+            if (!currentUser.name || !currentUser.class || !currentUser.absen) return;
+
+            document.getElementById('display-user-name').innerText = currentUser.name;
+            document.getElementById('header-status').classList.remove('hidden');
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('exam-screen').classList.remove('hidden');
+
+            renderGridNavigation();
+            loadQuestion(0);
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                let mins = Math.floor(timeRemaining / 60);
+                let secs = timeRemaining % 60;
+                document.getElementById('timer').innerText =
+                    `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert('Waktu pengerjaan telah habis! Sistem akan mengirimkan jawaban Anda otomatis.');
+                    processSubmit();
+                }
+            }, 1000);
+        }
+
+        function renderGridNavigation() {
+            const grid = document.getElementById('question-grid');
+            grid.innerHTML = '';
+            questions.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `grid-btn-${idx}`;
+                btn.innerText = idx + 1;
+                btn.onclick = () => loadQuestion(idx);
+                btn.className = `h-9 w-full rounded-lg font-bold text-xs flex items-center justify-center transition border ${getGridBtnStyle(idx)}`;
+                grid.appendChild(btn);
+            });
+        }
+
+        function getGridBtnStyle(idx) {
+            const qId = questions[idx].id;
+            const isAnswered = checkIsAnswered(qId);
+            if (idx === currentQuestionIndex) {
+                return 'bg-sky-600 text-white border-sky-600 ring-2 ring-sky-300 shadow';
+            } else if (isAnswered) {
+                return 'bg-emerald-500 text-white border-emerald-500';
+            } else {
+                return 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100';
+            }
+        }
+
+        function checkIsAnswered(qId) {
+            const ans = userAnswers[qId];
+            if (!ans) return false;
+            if (Array.isArray(ans)) return ans.length > 0;
+            if (typeof ans === 'object') return Object.keys(ans).length > 0;
+            return String(ans).trim() !== '';
+        }
+
+        function updateProgress() {
+            let answeredCount = 0;
+            questions.forEach(q => {
+                if (checkIsAnswered(q.id)) answeredCount++;
+            });
+            const percent = Math.round((answeredCount / questions.length) * 100);
+            document.getElementById('progress-text').innerText = `Progres: ${answeredCount} / ${questions.length} Terjawab`;
+            document.getElementById('progress-percent').innerText = `${percent}%`;
+            document.getElementById('progress-bar-fill').style.width = `${percent}%`;
+
+            questions.forEach((_, idx) => {
+                const btn = document.getElementById(`grid-btn-${idx}`);
+                if (btn) btn.className = `h-9 w-full rounded-lg font-bold text-xs flex items-center justify-center transition border ${getGridBtnStyle(idx)}`;
+            });
+        }
+
+        // ============================================================
+        // RENDER SOAL
+        // ============================================================
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questions[index];
+            const container = document.getElementById('question-container');
+
+            let html = `
+                <div>
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                        <span class="bg-sky-100 text-sky-800 text-xs font-bold px-3 py-1 rounded-md uppercase">Soal No. ${index + 1}</span>
+                        <span class="text-xs text-slate-500 font-medium"><i class="fa-solid fa-tag text-sky-500 mr-1"></i>${q.category}</span>
+                    </div>
+                    <div class="text-slate-800 font-medium text-base sm:text-lg leading-relaxed mb-6">
+                        ${q.question}
+                    </div>
+            `;
+
+            if (q.type === 'pg') html += renderPGOptions(q);
+            else if (q.type === 'pg_kompleks_multi') html += renderPGMultiOptions(q);
+            else if (q.type === 'short_answer') html += renderShortAnswerInput(q);
+
+            html += `</div>`;
+            container.innerHTML = html;
+
+            document.getElementById('btn-prev').disabled = index === 0;
+            document.getElementById('btn-prev').classList.toggle('opacity-50', index === 0);
+            document.getElementById('btn-next').innerText = index === questions.length - 1 ? 'Selesai' : 'Selanjutnya';
+
+            updateProgress();
+
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function renderPGOptions(q) {
+            const currentAns = userAnswers[q.id] || '';
+            const labels = ['A', 'B', 'C', 'D', 'E'];
+            let html = `<div class="space-y-2.5">`;
+            q.options.forEach((opt, idx) => {
+                const label = labels[idx];
+                const isSelected = currentAns === opt;
+                html += `
+                    <label onclick="savePGAnswer(${q.id}, ${idx})"
+                        class="option-card flex items-center gap-3.5 p-3.5 rounded-xl border border-slate-200 cursor-pointer transition ${isSelected ? 'selected' : ''}">
+                        <span class="w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center border ${isSelected ? 'bg-sky-600 text-white border-sky-600' : 'bg-slate-100 text-slate-600 border-slate-300'}">${label}</span>
+                        <span class="text-sm text-slate-700 font-medium">${opt}</span>
+                    </label>
+                `;
+            });
+            html += `</div>`;
+            return html;
+        }
+
+        function savePGAnswer(qId, optIndex) {
+            const q = questions[currentQuestionIndex];
+            userAnswers[qId] = q.options[optIndex];
+            // Update UI langsung tanpa reload
+            const cards = document.querySelectorAll('.option-card');
+            cards.forEach((card, idx) => {
+                const isSelected = idx === optIndex;
+                card.classList.toggle('selected', isSelected);
+                const badge = card.querySelector('span');
+                if (badge) {
+                    badge.className = `w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center border ${isSelected ? 'bg-sky-600 text-white border-sky-600' : 'bg-slate-100 text-slate-600 border-slate-300'}`;
+                }
+            });
+            updateProgress();
+        }
+
+        function renderPGMultiOptions(q) {
+            const currentAns = userAnswers[q.id] || [];
+            let html = `<div class="space-y-2.5">`;
+            q.options.forEach((opt, idx) => {
+                const isChecked = currentAns.includes(opt);
+                html += `
+                    <label onclick="togglePGMultiAnswer(${q.id}, ${idx})"
+                        class="option-card flex items-start gap-3.5 p-3.5 rounded-xl border border-slate-200 cursor-pointer transition ${isChecked ? 'selected' : ''}">
+                        <div class="mt-0.5 w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 ${isChecked ? 'bg-sky-600 border-sky-600 text-white' : 'border-slate-400 bg-white'}">
+                            ${isChecked ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+                        </div>
+                        <span class="text-sm text-slate-700 font-medium leading-normal">${opt}</span>
+                    </label>
+                `;
+            });
+            html += `</div>`;
+            return html;
+        }
+
+        function togglePGMultiAnswer(qId, optIndex) {
+            const q = questions[currentQuestionIndex];
+            const optVal = q.options[optIndex];
+            let list = userAnswers[qId] || [];
+            if (list.includes(optVal)) list = list.filter(item => item !== optVal);
+            else list.push(optVal);
+            userAnswers[qId] = list;
+
+            const cards = document.querySelectorAll('.option-card');
+            cards.forEach((card, idx) => {
+                const isChecked = list.includes(q.options[idx]);
+                card.classList.toggle('selected', isChecked);
+                const check = card.querySelector('div');
+                if (check) {
+                    check.className = `mt-0.5 w-5 h-5 rounded border flex items-center justify-center flex-shrink-0 ${isChecked ? 'bg-sky-600 border-sky-600 text-white' : 'border-slate-400 bg-white'}`;
+                    check.innerHTML = isChecked ? '<i class="fa-solid fa-check text-xs"></i>' : '';
+                }
+            });
+            updateProgress();
+        }
+
+        function renderShortAnswerInput(q) {
+            const currentVal = userAnswers[q.id] || '';
+            return `
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase">Ketikkan Jawaban Angka Bulat:</label>
+                    <input type="text" value="${currentVal}" oninput="saveShortAnswer(${q.id}, this.value)"
+                        placeholder="Contoh: 45"
+                        class="w-full max-w-xs px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-slate-800 text-lg font-bold outline-none transition">
+                    <p class="text-xs text-slate-400">*Isikan hanya bilangan/angka tanpa huruf/spasi.</p>
+                </div>
+            `;
+        }
+
+        function saveShortAnswer(qId, val) {
+            userAnswers[qId] = val.trim();
+            updateProgress();
+        }
+
+        function navigateQuestion(direction) {
+            const newIndex = currentQuestionIndex + direction;
+            if (newIndex >= 0 && newIndex < questions.length) loadQuestion(newIndex);
+        }
+
+        // ============================================================
+        // SUBMIT & EVALUASI
+        // ============================================================
+        function confirmSubmit() {
+            let answeredCount = 0;
+            questions.forEach(q => { if (checkIsAnswered(q.id)) answeredCount++; });
+
+            const modalText = document.getElementById('modal-warning-text');
+            if (answeredCount < questions.length) {
+                modalText.innerHTML = `Anda baru menjawab <span class="text-amber-600 font-bold">${answeredCount} dari ${questions.length}</span> soal. Apakah Anda yakin ingin menyelesaikan?`;
+            } else {
+                modalText.innerText = `Seluruh ${questions.length} soal telah dijawab. Kirimkan lembar jawaban Anda sekarang?`;
+            }
+            document.getElementById('submit-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('submit-modal').classList.add('hidden');
+        }
+
+        function processSubmit() {
+            closeModal();
+            clearInterval(timerInterval);
+            isSubmitted = true;
+
+            let correctCount = 0;
+            const totalQuestions = questions.length;
+
+            questions.forEach(q => {
+                const userAns = userAnswers[q.id];
+                if (q.type === 'pg' && userAns === q.answer) {
+                    correctCount++;
+                } else if (q.type === 'pg_kompleks_multi') {
+                    if (Array.isArray(userAns) && userAns.length === q.answer.length && userAns.every(v => q.answer.includes(v))) {
+                        correctCount++;
+                    }
+                } else if (q.type === 'short_answer') {
+                    if (userAns && String(userAns).trim() === q.answer) correctCount++;
+                }
+            });
+
+            const finalScore = Math.round((correctCount / totalQuestions) * 100);
+            const wrongCount = totalQuestions - correctCount;
+
+            document.getElementById('exam-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('result-user-info').innerText =
+                `Peserta: ${currentUser.name} | Kelas: ${currentUser.class} (Absen: ${currentUser.absen})`;
+            document.getElementById('final-score').innerText = finalScore;
+            document.getElementById('stat-correct').innerText = `${correctCount} Soal`;
+            document.getElementById('stat-wrong').innerText = `${wrongCount} Soal`;
+            document.getElementById('stat-accuracy').innerText = `${finalScore}%`;
+
+            const timeSpentTotal = TOTAL_TIME - timeRemaining;
+            const timeSpentMins = Math.floor(timeSpentTotal / 60);
+            const timeSpentSecs = timeSpentTotal % 60;
+            document.getElementById('stat-time').innerText = `${timeSpentMins}m ${timeSpentSecs}s`;
+
+            renderDiscussionList();
+        }
+
+        function renderDiscussionList() {
+            const list = document.getElementById('discussion-list');
+            list.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const userAns = userAnswers[q.id];
+                let isCorrect = false;
+
+                if (q.type === 'pg') isCorrect = userAns === q.answer;
+                else if (q.type === 'pg_kompleks_multi')
+                    isCorrect = Array.isArray(userAns) && userAns.length === q.answer.length && userAns.every(v => q.answer.includes(v));
+                else if (q.type === 'short_answer')
+                    isCorrect = userAns && String(userAns).trim() === q.answer;
+
+                const card = document.createElement('div');
+                card.className = `bg-white p-5 rounded-2xl border ${isCorrect ? 'border-emerald-200 bg-emerald-50/20' : 'border-red-200 bg-red-50/20'} shadow-sm space-y-3`;
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <span class="text-xs font-bold ${isCorrect ? 'text-emerald-700' : 'text-red-700'}">
+                            <i class="fa-solid ${isCorrect ? 'fa-circle-check' : 'fa-circle-xmark'} mr-1"></i>
+                            Soal No. ${idx + 1} (${isCorrect ? 'BENAR' : 'SALAH'})
+                        </span>
+                        <span class="text-xs text-slate-500">${q.category}</span>
+                    </div>
+                    <div class="text-sm font-medium text-slate-800">${q.question}</div>
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 text-xs space-y-1">
+                        <div class="text-slate-600"><strong>Jawaban Anda:</strong> ${formatUserAnswerDisplay(q, userAns)}</div>
+                        <div class="text-emerald-700"><strong>Kunci Jawaban:</strong> ${formatCorrectAnswerDisplay(q)}</div>
+                    </div>
+                    <div class="bg-sky-50 p-3.5 rounded-xl border border-sky-100 text-xs text-slate-700 space-y-1">
+                        <strong class="text-sky-800 block"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i>Pembahasan:</strong>
+                        <div>${q.explanation}</div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+
+            if (window.MathJax) MathJax.typesetPromise();
+        }
+
+        function formatUserAnswerDisplay(q, userAns) {
+            if (!userAns || (Array.isArray(userAns) && userAns.length === 0)) {
+                return '<span class="text-red-500 italic">Tidak dijawab</span>';
+            }
+            if (q.type === 'pg_kompleks_multi') return Array.isArray(userAns) ? userAns.join('; ') : userAns;
+            return userAns;
+        }
+
+        function formatCorrectAnswerDisplay(q) {
+            if (q.type === 'pg') return q.answer;
+            if (q.type === 'pg_kompleks_multi') return q.answer.join('; ');
+            if (q.type === 'short_answer') return q.answer;
+            return '';
+        }
+
+        // ============================================================
+        // COPYRIGHT YEAR
+        // ============================================================
+        document.querySelectorAll('.copy-year').forEach(el => {
+            el.textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
